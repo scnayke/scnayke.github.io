@@ -11,19 +11,21 @@
     <canvas id ='oldSkool'></canvas>
     
       <style>
-      button { position: absolute; top: 20px;left: 20px; background: #111;} #stop{left: 100px;} 
+      button {position: absolute;top: 20px;left: 20px;background: #111;} #stop{left: 100px;} #oldSkool{width: 100%;height: auto;}
       </style>
     <button><a href="index.html" style="color: #00aa00; text-decoration: none;">Home</a></button>
-    <!-- <button id="stop"><a href="portfolio.html">Skip</a></button> -->
+    <button id="stop"><a href="portfolio.html">Skip</a></button>
     
   <script>
+
       var db = document.body;
       var c = document.getElementById('oldSkool');
       var _2d  = c.getContext('2d');
+      
       c.width = window.innerWidth;
       c.height = window.innerHeight;
+
       var resume;
-     
       function relay(){
         window.requestAnimationFrame(relay);
         resume();
@@ -109,7 +111,7 @@
       x = 0; 
       y = 1; 
       c.width = w = window.innerWidth;
-      c.height = h = _s.length*10;
+      c.height = h = window.innerHeight;      
       db.style.margin = 0;
       db.style.background = "hsla(0,0%,0%,1)";
       db.style.overflow = "hidden";
@@ -117,8 +119,6 @@
       _2d.font = "1.1em monospace";
       
     
-
-
     resume = function(){
       _2d.globalCompositeOperation = "source-over";
       _2d.shadowBlur = 0; _2d.fillStyle = "hsla(0,0%,0%,0.4)";
@@ -136,7 +136,8 @@
         _2d.fillRect(100+_2d.measureText(_s[y].substr(0, x)).width, 102+y*16, 10, 14);
         x++;
             if (x >= _s[y].length) { y++; x = 0;}
-                if (y*16 > innerHeight-200) { _2d.translate(0, -0.5);}
+                // if (y*16 > innerHeight-200) { _2d.translate(0, -0.5);}
+                if (y*16 > window.innerHeight * 0.8) { _2d.translate(0, -0.5);}
                     if (y >= _s.length-1) { window.clearInterval();}}
       
     relay();
