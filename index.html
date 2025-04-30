@@ -51,14 +51,12 @@
   <script defer data-domain="scnayke.github.io" src="https://plausible.io/js/plausible.js"></script>
   <style>
     body { background: #111; color: #00aa00; font-family: 'Courier New', monospace; position: relative; }
-    #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.15; display: none; }
-    #matrix-bg.active { display: block; }
-    .cursor::after { content: '|'; animation: blink 1s step-end infinite; }
+    #matrix-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.85; visibility: visible; }
+    .cursor::after { content: '|'; animation: blink 1s step-end infinite; line-height: 1; }
     @keyframes blink { 50% { opacity: 0; } }
     .terminal-box { border: 2px solid #00aa00; padding: 1rem; background: #000; box-sizing: border-box; max-width: 100%; overflow-wrap: break-word; word-break: break-word; }
-    .terminal-prompt { display: flex; align-items: center; position: relative; }
-    .terminal-input { background: #000; color: #00aa00; border: none; font-family: 'Courier New', monospace; width: 100%; }
-    .terminal-input:focus { outline: 2px solid #00aa00; }
+    .terminal-prompt { display: inline-flex; align-items: baseline; gap: 0.25rem; position: relative; }
+    .terminal-input { background: transparent; color: #00aa00; border: none; outline: none; box-shadow: none; font-family: 'Courier New', monospace; font-size: 1rem; line-height: 1.2; display: inline-block; vertical-align: baseline; margin: 0; padding: 0; width: auto; }
     .terminal-output { max-height: 200px; overflow-y: auto; overflow-wrap: break-word; word-break: break-word; }
     .output-even::before { content: '> '; }
     .output-odd::before { content: '* '; }
@@ -82,7 +80,7 @@
       .hamburger { display: block; cursor: pointer; }
       .terminal-float { width: 100%; max-width: 95%; bottom: 10px; right: 10px; }
       .terminal-output { max-height: 150px; }
-      #matrix-bg { display: none; }
+      #matrix-bg { visibility: hidden; }
     }
     @media (min-width: 769px) {
       .nav-links { display: flex; }
@@ -100,7 +98,7 @@
   <!-- Navbar -->
   <nav role="navigation" aria-label="Main navigation" class="sticky top-0 bg-black p-4 z-10">
     <div class="container mx-auto flex justify-between items-center">
-      <a href="#home" class="text-3xl font-bold">🛡️ Saurabh Koravi</a>
+      <a href="#home" class="text-3xl font-bold">📂 Saurabh Koravi</a>
       <button class="hamburger text-xl" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
         ☰
       </button>
@@ -118,8 +116,8 @@
 
   <!-- Toggle Buttons -->
   <div class="fixed bottom-4 right-4 flex flex-col space-y-2 z-20">
-    <button id="toggle-terminal" class="bg-green-900 text-green-300 px-4 py-2" aria-label="Toggle terminal emulator">Terminal</button>
-    <button id="toggle-bg" class="bg-green-900 text-green-300 px-4 py-2" aria-label="Toggle background animation">Toggle Background</button>
+    <button id="toggle-terminal" class="bg-green-900 text-green-300 px-4 py-2" aria-label="Toggle terminal emulator">T</button>
+    <button id="toggle-bg" class="bg-green-900 text-green-300 px-4 py-2" aria-label="Toggle background animation">Bg</button>
   </div>
 
   <!-- Floating Terminal -->
@@ -136,11 +134,11 @@
   <section id="home" class="min-h-screen flex items-center justify-center">
     <div class="container mx-auto px-4 terminal-box">
       <h1 class="text-3xl md:text-4xl mb-4">Welcome to my cybersecurity portfolio.</h1>
-      <p class="text-lg md:text-xl mb-4">MTech Cybersecurity Student | Penetration Testing Enthusiast</p>
+      <p class="text-lg md:text-xl mb-4">M.Tech Cybersecurity Student 2024-26 | Pentester </p>
       <div class="flex space-x-4 mb-4">
         <a href="https://www.linkedin.com/in/saurabh-koravi/" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-lg md:text-xl">LinkedIn</a>
         <a href="https://github.com/scnayke" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-lg md:text-xl">GitHub</a>
-        <a href="https://twitter.com/hardkoravi" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-lg md:text-xl">Twitter</a>
+        <a href="https://x.com/scnayke" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-lg md:text-xl">Twitter</a>
         <a href="https://www.instagram.com/scnayke/" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-lg md:text-xl">Instagram</a>
       </div>
     </div>
@@ -150,8 +148,8 @@
   <section id="about" class="py-16">
     <div class="container mx-auto px-4 terminal-box">
       <h2 class="text-2xl md:text-3xl mb-4">about-me:$<span class="cursor"></span></h2>
-      <p class="text-lg md:text-xl mb-4">I'm Saurabh Koravi, a cybersecurity enthusiast pursuing an MTech in Cybersecurity.</p>
-      <p class="text-lg md:text-xl mb-4">My expertise lies in penetration testing, network security, and blockchain-based DDoS prevention. I enjoy building secure systems, analyzing vulnerabilities, and exploring innovative solutions. Beyond tech, I’m passionate about art, music, and sketching.</p>
+      <p class="text-lg md:text-xl mb-4">I'm Saurabh Koravi, a cybersecurity enthusiast based in Pune MH, India. Pursuing an M. Tech in Cybersecurity from MIT WPU.</p>
+      <p class="text-lg md:text-xl mb-4">My expertise lies in Ethical Hacking, penetration testing, network security, and Blockchain technology. I build secure systems, analyzing vulnerabilities, and explore innovative solutions. Beyond tech, I’m passionate about art, music, and Engines.</p>
     </div>
   </section>
 
@@ -171,7 +169,12 @@
         <span class="text-lg md:text-xl">Metasploit</span>
         <span class="text-lg md:text-xl">Linux</span>
         <span class="text-lg md:text-xl">MySQL</span>
+        <span class="text-lg md:text-xl">Burpsuite</span>
+        <span class="text-lg md:text-xl">Netsim</span>
+        <span class="text-lg md:text-xl">Machine Learning</span>
+        <span class="text-lg md:text-xl">AWS EC2, ELB</span>
         <span class="text-lg md:text-xl">Git</span>
+        <span class="text-lg md:text-xl">Automation Testing</span>
       </div>
     </div>
   </section>
@@ -186,7 +189,7 @@
           <div>
             <h3 class="text-xl md:text-2xl font-semibold">Network Anomaly Detection Dashboard</h3>
             <p class="text-lg md:text-xl">A real-time dashboard for detecting ARP replies and port scans using Scapy, Flask, and Chart.js.</p>
-            <a href="https://github.com/scnayke/network-anomaly" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-lg md:text-xl">Repository</a>
+            <a href="https://github.com/scnayke/cybersecurity-mini-projects/tree/main/NetworkAnomalyDetection" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-lg md:text-xl">Repository</a>
           </div>
         </div>
         <div class="flex flex-col md:flex-row items-start">
@@ -194,7 +197,7 @@
           <div>
             <h3 class="text-xl md:text-2xl font-semibold">Cisco Network Topologies</h3>
             <p class="text-lg md:text-xl">Designed star, bus, and ring topologies with IP configurations in Cisco Packet Tracer.</p>
-            <a href="https://github.com/scnayke/network-topologies" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-lg md:text-xl">Repository</a>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-lg md:text-xl">Repository</a>
           </div>
         </div>
         <div class="flex flex-col md:flex-row items-start">
@@ -202,7 +205,7 @@
           <div>
             <h3 class="text-xl md:text-2xl font-semibold">Blockchain for DDoS Prevention</h3>
             <p class="text-lg md:text-xl">Research and prototype using blockchain and smart contracts for real-time DDoS mitigation.</p>
-            <a href="https://github.com/scnayke/blockchain-ddos" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-lg md:text-xl">Repository</a>
+            <a href="#" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-lg md:text-xl">Repository - coming soon</a>
           </div>
         </div>
         <div class="flex flex-col md:flex-row items-start">
@@ -210,7 +213,7 @@
           <div>
             <h3 class="text-xl md:text-2xl font-semibold">Neural Network Line Follower</h3>
             <p class="text-lg md:text-xl">Built a neural network in C++ for a line-following robot, implemented on Arduino Uno.</p>
-            <a href="https://github.com/scnayke/neural-net" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-lg md:text-xl">Repository</a>
+            <a href="https://github.com/scnayke/ML_LineFollower" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-lg md:text-xl">Repository</a>
           </div>
         </div>
       </div>
@@ -223,20 +226,20 @@
       <h2 class="text-2xl md:text-3xl mb-4">education:$<span class="cursor"></span></h2>
       <div class="space-y-4 mb-4">
         <div>
-          <h3 class="text-xl md:text-2xl font-semibold">MTech in Cybersecurity</h3>
-          <p class="text-lg md:text-xl">Currently pursuing, expected 2025</p>
+          <h3 class="text-xl md:text-2xl font-semibold">M.Tech in Cybersecurity</h3>
+          <p class="text-lg md:text-xl">Currently pursuing 7.91 CGPA, expected 2026</p>
         </div>
         <div>
-          <h3 class="text-xl md:text-2xl font-semibold">B.E. in Electronics</h3>
-          <p class="text-lg md:text-xl">Pune Vidyarthi Griha COET, 2018–2022, 8.9 CGPA</p>
+          <h3 class="text-xl md:text-2xl font-semibold">B.E. in Information Technology</h3>
+          <p class="text-lg md:text-xl">Pune Vidyarthi Griha's COET, 2019–2022, 8.02 CGPA</p>
         </div>
         <div>
           <h3 class="text-xl md:text-2xl font-semibold">12th Grade</h3>
-          <p class="text-lg md:text-xl">Sardar Dastur Hormazdiar Junior College, 2017–2018, 64%</p>
+          <p class="text-lg md:text-xl">Sardar Dastur Hormazdiar Junior College, 2017–2019, 64%</p>
         </div>
         <div>
           <h3 class="text-xl md:text-2xl font-semibold">10th Grade</h3>
-          <p class="text-lg md:text-xl">The Bishop’s CO-ED School, Undri, 2015–2016, 81%</p>
+          <p class="text-lg md:text-xl">The Bishop’s CO-ED School, Undri, 2005–2016, 81%</p>
         </div>
       </div>
     </div>
@@ -248,9 +251,9 @@
       <h2 class="text-2xl md:text-3xl mb-4">contact-me:$<span class="cursor"></span></h2>
       <p class="text-lg md:text-xl mb-4">Reach out to me via email or social platforms:</p>
       <ul class="text-lg md:text-xl space-y-2 mb-4">
-        <li>Email: <a href="mailto:saurabh.koravi@example.com" class="hover:text-green-300">saurabh.koravi@example.com</a></li>
+        <li>Email: <a href="mailto:saurabhkoravi01@gmail.com" class="hover:text-green-300">saurabhkoravi01@gmail.com</a></li>
         <li>LinkedIn: <a href="https://www.linkedin.com/in/saurabh-koravi/" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">linkedin.com/in/saurabh-koravi</a></li>
-        <li>Twitter: <a href="https://twitter.com/hardkoravi" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">twitter.com/hardkoravi</a></li>
+        <li>Twitter: <a href="https://x.com/scnayke" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">x.com/scnayke</a></li>
       </ul>
     </div>
   </section>
@@ -267,11 +270,11 @@
   <!-- Resume Animation Section -->
   <section id="resume-animation" class="py-16">
     <div class="container mx-auto px-4 terminal-box">
-      <h2 class="text-2xl md:text-3xl mb-4">resume-animation:$<span class="cursor"></span></h2>
-      <p class="text-lg md:text-xl mb-4">View my resume as a terminal-style text animation.</p>
+      <h2 class="text-2xl md:text-3xl mb-4">Info_Relay:$<span class="cursor"></span></h2>
+      <p class="text-lg md:text-xl mb-4">Top Secret message</p>
       <div class="flex space-x-4 mb-4">
-        <button id="toggle-animation" class="bg-green-900 text-green-300 px-4 py-2" aria-label="Toggle resume animation">Toggle Animation</button>
-        <button id="skip-animation" class="bg-green-900 text-green-300 px-4 py-2" aria-label="Skip resume animation">Skip Animation</button>
+        <button id="toggle-animation" class="bg-green-900 text-green-300 px-4 py-2" aria-label="Toggle resume animation">Recieve</button>
+        <button id="skip-animation" class="bg-green-900 text-green-300 px-4 py-2" aria-label="Skip resume animation">Skip</button>
       </div>
       <canvas id="resume-canvas" style="display: none; width: 100%; height: auto;" aria-hidden="true"></canvas>
       <pre id="resume-text" class="text-lg md:text-xl" aria-label="Resume content"></pre>
@@ -317,19 +320,21 @@
       drops = Array(columns).fill(0);
 
       if (window.innerWidth >= 768 && localStorage.getItem('matrix-bg') !== 'disabled') {
-        matrixCanvas.classList.add('active');
         matrixInterval = setInterval(drawMatrix, 33);
+      } else {
+        matrixCanvas.classList.add('paused');
       }
     }
 
     function toggleMatrix() {
-      if (matrixCanvas.classList.contains('active')) {
-        matrixCanvas.classList.remove('active');
+      if (matrixInterval) {
         clearInterval(matrixInterval);
+        matrixInterval = null;
+        matrixCanvas.classList.add('paused');
         localStorage.setItem('matrix-bg', 'disabled');
       } else {
-        matrixCanvas.classList.add('active');
         matrixInterval = setInterval(drawMatrix, 33);
+        matrixCanvas.classList.remove('paused');
         localStorage.removeItem('matrix-bg');
       }
     }
@@ -341,48 +346,46 @@
       columns = Math.floor(matrixCanvas.width / 20);
       drops = Array(columns).fill(0);
       if (window.innerWidth < 768) {
-        matrixCanvas.classList.remove('active');
         clearInterval(matrixInterval);
-      } else if (localStorage.getItem('matrix-bg') !== 'disabled') {
-        matrixCanvas.classList.add('active');
+        matrixInterval = null;
+        matrixCanvas.classList.add('paused');
+      } else if (localStorage.getItem('matrix-bg') !== 'disabled' && !matrixInterval) {
         matrixInterval = setInterval(drawMatrix, 33);
+        matrixCanvas.classList.remove('paused');
       }
     });
     initMatrix();
 
     // Resume Animation
     const resumeContent = `
-      // Saurabh Bhupendra Koravi
-      // 
-      // • About
-      //   Cybersecurity MTech student with expertise in penetration testing, network security, and blockchain-based DDoS prevention.
-      //
-      // • Technical Skills
-      //   Python, Java, JavaScript, C/C++, Flask, Scapy, Wireshark, Cisco Packet Tracer, Metasploit, Linux, MySQL, Git
-      //
-      // • Projects
-      //   ➢ Network Anomaly Detection Dashboard: Real-time monitoring using Scapy, Flask, Chart.js.
-      //   ➢ Cisco Network Topologies: Designed star, bus, ring topologies in Cisco Packet Tracer.
-      //   ➢ Blockchain for DDoS Prevention: Research on blockchain-based DDoS mitigation.
-      //   ➢ Neural Network Line Follower: C++ neural network for Arduino-based robot.
-      //
-      // • Education
-      //   ✓ MTech in Cybersecurity, Ongoing, Expected 2025
-      //   ✓ B.E. in Electronics, Pune Vidyarthi Griha COET, 2018-2022, 8.9 CGPA
-      //   ✓ 12th, Sardar Dastur Hormazdiar Junior College, 2017-2018, 64%
-      //   ✓ 10th, The Bishop’s CO-ED School, Undri, 2015-2016, 81%
-      //
-      // • Work Experience
-      //   ➢ UI/UX Intern, PheonixGen Systems, Aug-Oct 2021: Worked on stock trader app UI with Flutter Flow.
-      //
-      // • Volunteer Experience
-      //   ➢ Associate Tech Head, Google DSC: Managed tech events and projects.
-      //   ➢ Associate Digital Creator Head, EDC: Created digital content for events.
-      //   ➢ Co-founder, Competitive Coding Club: Taught data structures and algorithms.
-      //
-      // • Personal Details
-      //   ➢ DOB: 10/10/2000 | Languages: Marathi, Hindi, English, Japanese (elementary)
-      //   ➢ Hobbies: Guitar, sketching, travel, running, cycling
+    //
+    //    Certifications
+    //
+    //  CompTIA A+
+    //    Credential ID: MH-HP-22-09-0110
+    //    valid till - 06/27/2026
+    //
+    //  CompTIA Network+
+    //    Credential ID: MH-HP-22-09-0110
+    //    valid till - 06/27/2026
+    //
+    //  Star cyber secure user
+    //    Credential ID: STR23SCU00214607
+    //    valid till - 06/03/2026
+    //
+    // • Work Experience
+    //   ➢ UI/UX Intern, PheonixGen Systems, Aug-Oct 2021: Worked on stock trader app UI with Flutter Flow.
+    //   ➢ Lecturer for Software Development, Aug-Mar 2023-2024 - B. Vocational department at PDEA's Mamasaheb Mohol College, Kothrud
+    //
+    // • Volunteer Experience
+    //   ➢ Associate Tech Head, Google DSC: Managed tech events and projects.
+    //   ➢ Associate Digital Creator Head, EDC: Created digital content for events.
+    //   ➢ Associate Founder, Competitive Coding Club: Taught data structures and algorithms.
+    //
+    // • Personal Details
+    //   ➢ DOB: 10/10/2000 | Languages: Marathi, Hindi, English, Japanese (elementary)
+    //   ➢ Hobbies: Music/guitar/drums, Art/sketching, Traveleling, Running, Cycling
+
     `.split('\n').map(line => line.trim());
 
     const canvas = document.getElementById('resume-canvas');
@@ -466,7 +469,7 @@
     const terminalFloat = document.getElementById('terminal-float');
     const terminalInput = document.getElementById('terminal-input');
     const terminalOutput = document.getElementById('terminal-output');
-    const sections = ['home', 'about', 'skills', 'projects', 'education', 'contact', 'blog', 'resume-animation'];
+    const sections = ['home', 'about', 'skills', 'projects', 'education', 'contact', 'blog', 'Info_Relay'];
     const searchItems = [
       { name: 'Network Anomaly Detection Dashboard', path: 'projects/network-anomaly', keywords: ['network', 'anomaly', 'scapy', 'flask'], details: 'A real-time dashboard for detecting ARP replies and port scans using Scapy, Flask, and Chart.js.' },
       { name: 'Cisco Network Topologies', path: 'projects/cisco-topologies', keywords: ['cisco', 'network', 'topologies'], details: 'Designed star, bus, and ring topologies with IP configurations in Cisco Packet Tracer.' },
@@ -480,14 +483,14 @@
     let blogs = [];
     const commands = {
       help: () => `Available commands:
-  help - Show this message
-  ls - List sections
-  cd [section] - Navigate to section (e.g., cd projects)
-  find [keyword] - Search projects or sections
-  cat [section/project/blog] - Display details
-  pwd - Show current section
-  whoami - Display bio
-  man [command] - Show command help
+  help - Show this message;
+  ls - List sections;
+  cd [section] - Navigate to section (e.g., cd projects);
+  find [keyword] - Search projects or sections;
+  cat [section/project/blog] - Display details;
+  pwd - Show current section;
+  whoami - Display bio;
+  man [command] - Show command help;
   clear - Clear terminal output`,
       ls: () => sections.join('\n'),
       cd: (arg) => {
@@ -526,7 +529,7 @@
         }
         return '/home';
       },
-      whoami: () => 'Saurabh Koravi, MTech Cybersecurity student specializing in penetration testing and blockchain-based DDoS prevention.',
+      whoami: () => 'scnayke',
       man: (arg) => {
         const manPages = {
           help: 'help: Display list of available commands.',
@@ -667,7 +670,7 @@
     const defaultBlogs = [{
       title: 'Placeholder Blog Post',
       date: '2025-01-01',
-      summary: 'This is a placeholder blog post. Update blogs.json to add real content.',
+      summary: 'This is a placeholder blog post. Update blogs.json to add content.',
       link: 'blog/placeholder.html',
       keywords: ['placeholder']
     }];
@@ -703,3 +706,27 @@
   </script>
 </body>
 </html>
+
+
+<!-- 
+Relay message old
+
+// Saurabh Bhupendra Koravi
+// 
+// • About
+//   Cybersecurity MTech student with expertise in penetration testing, network security, and blockchain-based DDoS prevention.
+//
+// • Technical Skills
+//   Python, Java, JavaScript, C/C++, Flask, Scapy, Wireshark, Cisco Packet Tracer, Metasploit, Linux, MySQL, Git
+//
+// • Projects
+//   ➢ Network Anomaly Detection Dashboard: Real-time monitoring using Scapy, Flask, Chart.js.
+//   ➢ Cisco Network Topologies: Designed star, bus, ring topologies in Cisco Packet Tracer.
+//   ➢ Blockchain for DDoS Prevention: Research on blockchain-based DDoS mitigation.
+//   ➢ Neural Network Line Follower: C++ neural network for Arduino-based robot.
+//
+// • Education
+//   ✓ MTech in Cybersecurity, Ongoing, Expected 2025
+//   ✓ B.E. in Electronics, Pune Vidyarthi Griha COET, 2018-2022, 8.9 CGPA
+//   ✓ 12th, Sardar Dastur Hormazdiar Junior College, 2017-2018, 64%
+//   ✓ 10th, The Bishop’s CO-ED School, Undri, 2015-2016, 81%  -->
