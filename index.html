@@ -43,8 +43,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Portfolio of Saurabh Koravi, Cybersecurity MTech Student">
-  <link rel="shortcut icon" type="image/x-icon" href="images/icon-terminal.png" />
-  <link rel="icon" type="image/x-icon" href="images/icon-terminal.png" />
+  <link rel="shortcut icon" type="image/x-icon" href="images/icon-terminal.png" loading="lazy" />
+  <link rel="icon" type="image/x-icon" href="images/icon-terminal.png" loading="lazy" />
   <title>Saurabh Koravi - Cybersecurity Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Plausible Analytics -->
@@ -54,49 +54,70 @@
     .cursor::after { content: '|'; animation: blink 1s step-end infinite; }
     @keyframes blink { 50% { opacity: 0; } }
     .terminal-box { border: 2px solid #00aa00; padding: 1rem; background: #000; }
-    .terminal-prompt { display: flex; align-items: center; }
+    .terminal-prompt { display: flex; align-items: center; position: relative; }
     .terminal-input { background: #000; color: #00aa00; border: none; font-family: 'Courier New', monospace; width: 100%; }
-    .terminal-input:focus { outline: none; }
-    .terminal-output { max-height: 200px; overflow-y: auto; }
+    .terminal-input:focus { outline: 2px solid #00aa00; }
+    .terminal-output { max-height: 300px; overflow-y: auto; }
+    .output-even::before { content: '> '; }
+    .output-odd::before { content: '* '; }
     .output-even { color: #00aa00; }
     .output-odd { color: #33ff33; }
     #resume-text { display: none; }
     #resume-animation.active #resume-text { display: block; }
     #resume-animation.active #resume-canvas { display: none; }
+    .terminal-float { position: fixed; bottom: 20px; right: 20px; width: 500px; max-width: 90%; z-index: 20; display: none; }
+    .terminal-float.active { display: block; }
+    .terminal-header { background: #00aa00; color: #000; padding: 0.5rem; cursor: move; }
+    .skip-link { position: absolute; top: -40px; left: 0; background: #000; color: #00aa00; padding: 8px; z-index: 100; }
+    .skip-link:focus { top: 0; }
+    .tooltip::after { content: 'Type "help" to start!'; position: absolute; bottom: 100%; right: 0; background: #000; color: #00aa00; padding: 0.5rem; border: 1px solid #00aa00; display: none; }
+    .tooltip:hover::after { display: block; }
+    button:hover, button:focus { background-color: #00aa00; color: #000; outline: 2px solid #00aa00; }
   </style>
 </head>
 <body>
+  <!-- Skip to Content -->
+  <a href="#home" class="skip-link" tabindex="0">Skip to Content</a>
+
   <!-- Navbar -->
-  <nav class="sticky top-0 bg-black p-4 z-10">
+  <nav role="navigation" aria-label="Main navigation" class="sticky top-0 bg-black p-4 z-10">
     <div class="container mx-auto flex justify-between items-center">
-      <a href="#home" class="text-2xl font-bold">🛡️ Saurabh Koravi</a>
+      <a href="#home" class="text-4xl font-bold">🛡️ Saurabh Koravi</a>
       <div class="space-x-4">
-        <a href="#about" class="hover:text-green-300">/about</a>
-        <a href="#skills" class="hover:text-green-300">/skills</a>
-        <a href="#projects" class="hover:text-green-300">/projects</a>
-        <a href="#education" class="hover:text-green-300">/education</a>
-        <a href="#contact" class="hover:text-green-300">/contact</a>
-        <a href="#blog" class="hover:text-green-300">/blog</a>
-        <a href="files/Saurabh_B_Koravi-Resume.pdf" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">/resume</a>
+        <a href="#about" class="hover:text-green-300 text-xl">/about</a>
+        <a href="#skills" class="hover:text-green-300 text-xl">/skills</a>
+        <a href="#projects" class="hover:text-green-300 text-xl">/projects</a>
+        <a href="#education" class="hover:text-green-300 text-xl">/education</a>
+        <a href="#contact" class="hover:text-green-300 text-xl">/contact</a>
+        <a href="#blog" class="hover:text-green-300 text-xl">/blog</a>
+        <a href="files/Saurabh_B_Koravi-Resume.pdf" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-xl">/resume</a>
       </div>
     </div>
   </nav>
 
+  <!-- Toggle Terminal Button -->
+  <button id="toggle-terminal" class="fixed bottom-4 right-4 bg-green-900 text-green-300 px-4 py-2 z-20" aria-label="Toggle terminal emulator">Terminal</button>
+
+  <!-- Floating Terminal -->
+  <div id="terminal-float" class="terminal-float terminal-box" role="region" aria-label="Terminal emulator">
+    <div class="terminal-header">scnayke@portfolio:~$</div>
+    <div class="terminal-output" id="terminal-output" role="log" aria-live="polite"></div>
+    <div class="terminal-prompt tooltip">
+      <span>scnayke:~$<span class="cursor"></span></span>
+      <input type="text" class="terminal-input" id="terminal-input" aria-label="Terminal command input" autocomplete="off">
+    </div>
+  </div>
+
   <!-- Home Section -->
   <section id="home" class="min-h-screen flex items-center justify-center">
     <div class="container mx-auto px-4 terminal-box">
-      <h1 class="text-3xl mb-4">Welcome to my cybersecurity portfolio.</h1>
-      <p class="text-lg mb-4">MTech Cybersecurity Student | Penetration Testing Enthusiast</p>
+      <h1 class="text-4xl mb-4">Welcome to my cybersecurity portfolio.</h1>
+      <p class="text-xl mb-4">MTech Cybersecurity Student | Penetration Testing Enthusiast</p>
       <div class="flex space-x-4 mb-4">
-        <a href="https://www.linkedin.com/in/saurabh-koravi/" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">LinkedIn</a>
-        <a href="https://github.com/scnayke" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">GitHub</a>
-        <a href="https://twitter.com/hardkoravi" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">Twitter</a>
-        <a href="https://www.instagram.com/scnayke/" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">Instagram</a>
-      </div>
-      <div class="terminal-output" id="home-output"></div>
-      <div class="terminal-prompt">
-        <span>scnayke:~$<span class="cursor"></span></span>
-        <input type="text" class="terminal-input" id="home-input">
+        <a href="https://www.linkedin.com/in/saurabh-koravi/" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-xl">LinkedIn</a>
+        <a href="https://github.com/scnayke" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-xl">GitHub</a>
+        <a href="https://twitter.com/hardkoravi" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-xl">Twitter</a>
+        <a href="https://www.instagram.com/scnayke/" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-xl">Instagram</a>
       </div>
     </div>
   </section>
@@ -104,39 +125,29 @@
   <!-- About Section -->
   <section id="about" class="py-16">
     <div class="container mx-auto px-4 terminal-box">
-      <h2 class="text-2xl mb-4">about-me:$<span class="cursor"></span></h2>
-      <p class="text-lg mb-4">I'm Saurabh Koravi, a cybersecurity enthusiast pursuing an MTech in Cybersecurity.</p>
-      <p class="text-lg mb-4">My expertise lies in penetration testing, network security, and blockchain-based DDoS prevention. I enjoy building secure systems, analyzing vulnerabilities, and exploring innovative solutions. Beyond tech, I’m passionate about art, music, and sketching.</p>
-      <div class="terminal-output" id="about-output"></div>
-      <div class="terminal-prompt">
-        <span>scnayke:~$<span class="cursor"></span></span>
-        <input type="text" class="terminal-input" id="about-input">
-      </div>
+      <h2 class="text-3xl mb-4">about-me:$<span class="cursor"></span></h2>
+      <p class="text-xl mb-4">I'm Saurabh Koravi, a cybersecurity enthusiast pursuing an MTech in Cybersecurity.</p>
+      <p class="text-xl mb-4">My expertise lies in penetration testing, network security, and blockchain-based DDoS prevention. I enjoy building secure systems, analyzing vulnerabilities, and exploring innovative solutions. Beyond tech, I’m passionate about art, music, and sketching.</p>
     </div>
   </section>
 
   <!-- Skills Section -->
   <section id="skills" class="py-16 bg-black">
     <div class="container mx-auto px-4 terminal-box">
-      <h2 class="text-2xl mb-4">skills:$<span class="cursor"></span></h2>
+      <h2 class="text-3xl mb-4">skills:$<span class="cursor"></span></h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-        <span class="text-lg">Python</span>
-        <span class="text-lg">Java</span>
-        <span class="text-lg">JavaScript</span>
-        <span class="text-lg">C/C++</span>
-        <span class="text-lg">Flask</span>
-        <span class="text-lg">Scapy</span>
-        <span class="text-lg">Wireshark</span>
-        <span class="text-lg">Cisco Packet Tracer</span>
-        <span class="text-lg">Metasploit</span>
-        <span class="text-lg">Linux</span>
-        <span class="text-lg">MySQL</span>
-        <span class="text-lg">Git</span>
-      </div>
-      <div class="terminal-output" id="skills-output"></div>
-      <div class="terminal-prompt">
-        <span>scnayke:~$<span class="cursor"></span></span>
-        <input type="text" class="terminal-input" id="skills-input">
+        <span class="text-xl">Python</span>
+        <span class="text-xl">Java</span>
+        <span class="text-xl">JavaScript</span>
+        <span class="text-xl">C/C++</span>
+        <span class="text-xl">Flask</span>
+        <span class="text-xl">Scapy</span>
+        <span class="text-xl">Wireshark</span>
+        <span class="text-xl">Cisco Packet Tracer</span>
+        <span class="text-xl">Metasploit</span>
+        <span class="text-xl">Linux</span>
+        <span class="text-xl">MySQL</span>
+        <span class="text-xl">Git</span>
       </div>
     </div>
   </section>
@@ -144,33 +155,40 @@
   <!-- Projects Section -->
   <section id="projects" class="py-16">
     <div class="container mx-auto px-4 terminal-box">
-      <h2 class="text-2xl mb-4">projects:$<span class="cursor"></span></h2>
+      <h2 class="text-3xl mb-4">projects:$<span class="cursor"></span></h2>
       <div class="space-y-6 mb-4">
-        <div>
-          <h3 class="text-xl font-semibold">Network Anomaly Detection Dashboard</h3>
-          <p class="text-lg">A real-time dashboard for detecting ARP replies and port scans using Scapy, Flask, and Chart.js.</p>
-          <a href="https://github.com/scnayke/network-anomaly" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">Repository</a>
+        <div class="flex flex-col md:flex-row items-start">
+          <img src="images/network-anomaly.png" alt="Network Anomaly Detection Dashboard screenshot" class="w-full md:w-1/3 mb-4 md:mr-4" loading="lazy">
+          <div>
+            <h3 class="text-2xl font-semibold">Network Anomaly Detection Dashboard</h3>
+            <p class="text-xl">A real-time dashboard for detecting ARP replies and port scans using Scapy, Flask, and Chart.js.</p>
+            <a href="https://github.com/scnayke/network-anomaly" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-xl">Repository</a>
+          </div>
         </div>
-        <div>
-          <h3 class="text-xl font-semibold">Cisco Network Topologies</h3>
-          <p class="text-lg">Designed star, bus, and ring topologies with IP configurations in Cisco Packet Tracer.</p>
-          <a href="https://github.com/scnayke/network-topologies" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">Repository</a>
+        <div class="flex flex-col md:flex-row items-start">
+          <img src="images/cisco-topologies.png" alt="Cisco Network Topologies screenshot" class="w-full md:w-1/3 mb-4 md:mr-4" loading="lazy">
+          <div>
+            <h3 class="text-2xl font-semibold">Cisco Network Topologies</h3>
+            <p class="text-xl">Designed star, bus, and ring topologies with IP configurations in Cisco Packet Tracer.</p>
+            <a href="https://github.com/scnayke/network-topologies" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-xl">Repository</a>
+          </div>
         </div>
-        <div>
-          <h3 class="text-xl font-semibold">Blockchain for DDoS Prevention</h3>
-          <p class="text-lg">Research and prototype using blockchain and smart contracts for real-time DDoS mitigation.</p>
-          <a href="https://github.com/scnayke/blockchain-ddos" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">Repository</a>
+        <div class="flex flex-col md:flex-row items-start">
+          <img src="images/blockchain-ddos.png" alt="Blockchain for DDoS Prevention screenshot" class="w-full md:w-1/3 mb-4 md:mr-4" loading="lazy">
+          <div>
+            <h3 class="text-2xl font-semibold">Blockchain for DDoS Prevention</h3>
+            <p class="text-xl">Research and prototype using blockchain and smart contracts for real-time DDoS mitigation.</p>
+            <a href="https://github.com/scnayke/blockchain-ddos" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-xl">Repository</a>
+          </div>
         </div>
-        <div>
-          <h3 class="text-xl font-semibold">Neural Network Line Follower</h3>
-          <p class="text-lg">Built a neural network in C++ for a line-following robot, implemented on Arduino Uno.</p>
-          <a href="https://github.com/scnayke/neural-net" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">Repository</a>
+        <div class="flex flex-col md:flex-row items-start">
+          <img src="images/neural-net.png" alt="Neural Network Line Follower screenshot" class="w-full md:w-1/3 mb-4 md:mr-4" loading="lazy">
+          <div>
+            <h3 class="text-2xl font-semibold">Neural Network Line Follower</h3>
+            <p class="text-xl">Built a neural network in C++ for a line-following robot, implemented on Arduino Uno.</p>
+            <a href="https://github.com/scnayke/neural-net" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-xl">Repository</a>
+          </div>
         </div>
-      </div>
-      <div class="terminal-output" id="projects-output"></div>
-      <div class="terminal-prompt">
-        <span>scnayke:~$<span class="cursor"></span></span>
-        <input type="text" class="terminal-input" id="projects-input">
       </div>
     </div>
   </section>
@@ -178,29 +196,24 @@
   <!-- Education Section -->
   <section id="education" class="py-16 bg-black">
     <div class="container mx-auto px-4 terminal-box">
-      <h2 class="text-2xl mb-4">education:$<span class="cursor"></span></h2>
+      <h2 class="text-3xl mb-4">education:$<span class="cursor"></span></h2>
       <div class="space-y-4 mb-4">
         <div>
-          <h3 class="text-xl font-semibold">MTech in Cybersecurity</h3>
-          <p class="text-lg">Currently pursuing, expected 2025</p>
+          <h3 class="text-2xl font-semibold">MTech in Cybersecurity</h3>
+          <p class="text-xl">Currently pursuing, expected 2025</p>
         </div>
         <div>
-          <h3 class="text-xl font-semibold">B.E. in Electronics</h3>
-          <p class="text-lg">Pune Vidyarthi Griha COET, 2018–2022, 8.9 CGPA</p>
+          <h3 class="text-2xl font-semibold">B.E. in Electronics</h3>
+          <p class="text-xl">Pune Vidyarthi Griha COET, 2018–2022, 8.9 CGPA</p>
         </div>
         <div>
-          <h3 class="text-xl font-semibold">12th Grade</h3>
-          <p class="text-lg">Sardar Dastur Hormazdiar Junior College, 2017–2018, 64%</p>
+          <h3 class="text-2xl font-semibold">12th Grade</h3>
+          <p class="text-xl">Sardar Dastur Hormazdiar Junior College, 2017–2018, 64%</p>
         </div>
         <div>
-          <h3 class="text-xl font-semibold">10th Grade</h3>
-          <p class="text-lg">The Bishop’s CO-ED School, Undri, 2015–2016, 81%</p>
+          <h3 class="text-2xl font-semibold">10th Grade</h3>
+          <p class="text-xl">The Bishop’s CO-ED School, Undri, 2015–2016, 81%</p>
         </div>
-      </div>
-      <div class="terminal-output" id="education-output"></div>
-      <div class="terminal-prompt">
-        <span>scnayke:~$<span class="cursor"></span></span>
-        <input type="text" class="terminal-input" id="education-input">
       </div>
     </div>
   </section>
@@ -208,60 +221,45 @@
   <!-- Contact Section -->
   <section id="contact" class="py-16">
     <div class="container mx-auto px-4 terminal-box">
-      <h2 class="text-2xl mb-4">contact-me:$<span class="cursor"></span></h2>
-      <p class="text-lg mb-4">Reach out to me via email or social platforms:</p>
-      <ul class="text-lg space-y-2 mb-4">
+      <h2 class="text-3xl mb-4">contact-me:$<span class="cursor"></span></h2>
+      <p class="text-xl mb-4">Reach out to me via email or social platforms:</p>
+      <ul class="text-xl space-y-2 mb-4">
         <li>Email: <a href="mailto:saurabh.koravi@example.com" class="hover:text-green-300">saurabh.koravi@example.com</a></li>
         <li>LinkedIn: <a href="https://www.linkedin.com/in/saurabh-koravi/" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">linkedin.com/in/saurabh-koravi</a></li>
         <li>Twitter: <a href="https://twitter.com/hardkoravi" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">twitter.com/hardkoravi</a></li>
       </ul>
-      <div class="terminal-output" id="contact-output"></div>
-      <div class="terminal-prompt">
-        <span>scnayke:~$<span class="cursor"></span></span>
-        <input type="text" class="terminal-input" id="contact-input">
-      </div>
     </div>
   </section>
 
   <!-- Blog Section -->
   <section id="blog" class="py-16 bg-black">
     <div class="container mx-auto px-4 terminal-box">
-      <h2 class="text-2xl mb-4">blog:$<span class="cursor"></span></h2>
-      <p class="text-lg mb-4">My latest cybersecurity insights and research.</p>
+      <h2 class="text-3xl mb-4">blog:$<span class="cursor"></span></h2>
+      <p class="text-xl mb-4">My latest cybersecurity insights and research.</p>
       <div id="blog-posts" class="space-y-6 mb-4"></div>
-      <div class="terminal-output" id="blog-output"></div>
-      <div class="terminal-prompt">
-        <span>scnayke:~$<span class="cursor"></span></span>
-        <input type="text" class="terminal-input" id="blog-input">
-      </div>
     </div>
   </section>
 
   <!-- Resume Animation Section -->
   <section id="resume-animation" class="py-16">
     <div class="container mx-auto px-4 terminal-box">
-      <h2 class="text-2xl mb-4">resume-animation:$<span class="cursor"></span></h2>
-      <p class="text-lg mb-4">View my resume as a terminal-style text animation.</p>
+      <h2 class="text-3xl mb-4">resume-animation:$<span class="cursor"></span></h2>
+      <p class="text-xl mb-4">View my resume as a terminal-style text animation.</p>
       <div class="flex space-x-4 mb-4">
-        <button id="toggle-animation" class="bg-green-900 hover:bg-green-800 text-green-300 px-4 py-2">Toggle Animation</button>
-        <button id="skip-animation" class="bg-green-900 hover:bg-green-800 text-green-300 px-4 py-2">Skip Animation</button>
+        <button id="toggle-animation" class="bg-green-900 text-green-300 px-4 py-2" aria-label="Toggle resume animation">Toggle Animation</button>
+        <button id="skip-animation" class="bg-green-900 text-green-300 px-4 py-2" aria-label="Skip resume animation">Skip Animation</button>
       </div>
-      <canvas id="resume-canvas" style="display: none; width: 100%; height: auto;"></canvas>
-      <pre id="resume-text" class="text-lg"></pre>
-      <div class="terminal-output" id="resume-output"></div>
-      <div class="terminal-prompt">
-        <span>scnayke:~$<span class="cursor"></span></span>
-        <input type="text" class="terminal-input" id="resume-input">
-      </div>
+      <canvas id="resume-canvas" style="display: none; width: 100%; height: auto;" aria-hidden="true"></canvas>
+      <pre id="resume-text" class="text-xl" aria-label="Resume content"></pre>
     </div>
   </section>
 
   <!-- Footer -->
   <footer class="bg-black py-6 text-center">
-    <p>© 2025 Saurabh Koravi. All rights reserved.</p>
+    <p class="text-xl">© 2025 Saurabh Koravi. All rights reserved.</p>
     <div class="mt-2">
-      <a href="https://github.com/scnayke" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 mx-2">GitHub</a>
-      <a href="https://www.linkedin.com/in/saurabh-koravi/" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 mx-2">LinkedIn</a>
+      <a href="https://github.com/scnayke" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-xl mx-2">GitHub</a>
+      <a href="https://www.linkedin.com/in/saurabh-koravi/" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-xl mx-2">LinkedIn</a>
     </div>
   </footer>
 
@@ -309,6 +307,7 @@
     let isAnimating = false;
     let x = 0, y = 0;
     let animationInterval = null;
+    let translateY = 0;
 
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -325,6 +324,7 @@
       ctx.textBaseline = 'top';
       ctx.font = '1.1em monospace';
 
+      ctx.setTransform(1, 0, 0, 1, 0, translateY);
       resumeContent.forEach((line, i) => {
         if (i <= y) {
           ctx.fillText(i === y ? line.substr(0, x) : line, 100, 100 + i * 16);
@@ -335,7 +335,7 @@
       ctx.fillRect(100 + ctx.measureText(resumeContent[y].substr(0, x)).width, 102 + y * 16, 10, 14);
       x++;
       if (x >= resumeContent[y].length) { y++; x = 0; }
-      if (y * 16 > window.innerHeight * 0.8) { ctx.translate(0, -0.5); }
+      if (y * 16 > window.innerHeight * 0.8) { translateY -= 0.5; }
       if (y >= resumeContent.length) { skipAnimation(); }
     }
 
@@ -355,7 +355,7 @@
         isAnimating = true;
         canvas.style.display = 'block';
         document.getElementById('resume-animation').classList.remove('active');
-        animationInterval = setInterval(renderAnimation, 10);
+        animationInterval = setInterval(renderAnimation, 30);
       }
     });
 
@@ -367,59 +367,58 @@
     });
 
     // Terminal Emulator
+    const toggleTerminal = document.getElementById('toggle-terminal');
+    const terminalFloat = document.getElementById('terminal-float');
+    const terminalInput = document.getElementById('terminal-input');
+    const terminalOutput = document.getElementById('terminal-output');
     const sections = ['home', 'about', 'skills', 'projects', 'education', 'contact', 'blog', 'resume-animation'];
     const searchItems = [
-      { name: 'Network Anomaly Detection Dashboard', path: 'projects/network-anomaly', keywords: ['network', 'anomaly', 'scapy', 'flask'] },
-      { name: 'Cisco Network Topologies', path: 'projects/cisco-topologies', keywords: ['cisco', 'network', 'topologies'] },
-      { name: 'Blockchain for DDoS Prevention', path: 'projects/blockchain-ddos', keywords: ['blockchain', 'ddos', 'security'] },
-      { name: 'Neural Network Line Follower', path: 'projects/neural-net', keywords: ['neural', 'robot', 'arduino'] },
-      { name: 'Blockchain DDoS Blog', path: 'blogs/ddos-blockchain', keywords: ['blockchain', 'ddos'] },
-      { name: 'Network Anomaly Blog', path: 'blogs/network-anomaly', keywords: ['network', 'anomaly'] },
-      { name: 'About', path: '/about', keywords: ['about', 'bio'] },
-      { name: 'Skills', path: '/skills', keywords: ['skills', 'tech'] },
-      { name: 'Education', path: '/education', keywords: ['education', 'degree'] },
-      { name: 'Contact', path: '/contact', keywords: ['contact', 'email'] }
+      { name: 'Network Anomaly Detection Dashboard', path: 'projects/network-anomaly', keywords: ['network', 'anomaly', 'scapy', 'flask'], details: 'A real-time dashboard for detecting ARP replies and port scans using Scapy, Flask, and Chart.js.' },
+      { name: 'Cisco Network Topologies', path: 'projects/cisco-topologies', keywords: ['cisco', 'network', 'topologies'], details: 'Designed star, bus, and ring topologies with IP configurations in Cisco Packet Tracer.' },
+      { name: 'Blockchain for DDoS Prevention', path: 'projects/blockchain-ddos', keywords: ['blockchain', 'ddos', 'security'], details: 'Research and prototype using blockchain and smart contracts for real-time DDoS mitigation.' },
+      { name: 'Neural Network Line Follower', path: 'projects/neural-net', keywords: ['neural', 'robot', 'arduino'], details: 'Built a neural network in C++ for a line-following robot, implemented on Arduino Uno.' },
+      { name: 'About', path: '/about', keywords: ['about', 'bio'], details: 'I\'m Saurabh Koravi, a cybersecurity enthusiast pursuing an MTech in Cybersecurity.' },
+      { name: 'Skills', path: '/skills', keywords: ['skills', 'tech'], details: 'Python, Java, JavaScript, C/C++, Flask, Scapy, Wireshark, Cisco Packet Tracer, Metasploit, Linux, MySQL, Git' },
+      { name: 'Education', path: '/education', keywords: ['education', 'degree'], details: 'MTech Cybersecurity (Ongoing), B.E. Electronics (8.9 CGPA), 12th (64%), 10th (81%)' },
+      { name: 'Contact', path: '/contact', keywords: ['contact', 'email'], details: 'Email: saurabh.koravi@example.com\nLinkedIn: linkedin.com/in/saurabh-koravi' }
     ];
+    let blogs = [];
     const commands = {
       help: () => `Available commands:
   help - Show this message
   ls - List sections
   cd [section] - Navigate to section (e.g., cd projects)
   find [keyword] - Search projects or sections
-  cat [section/project] - Display details
+  cat [section/project/blog] - Display details
   pwd - Show current section
+  whoami - Display bio
+  man [command] - Show command help
   clear - Clear terminal output`,
       ls: () => sections.join('\n'),
       cd: (arg) => {
         if (sections.includes(arg)) {
           document.getElementById(arg).scrollIntoView({ behavior: 'smooth' });
+          terminalInput.focus();
           return `Navigated to /${arg}`;
         }
         return `Section '${arg}' not found. Try 'ls' for available sections.`;
       },
       find: (keyword) => {
-        const results = searchItems.filter(item => item.keywords.some(k => k.includes(keyword.toLowerCase())));
-        return results.length ? results.map(r => r.path).join('\n') : `No results found for '${keyword}'`;
+        const results = [...searchItems, ...blogs.map(b => ({
+          name: b.title,
+          path: b.link,
+          keywords: b.keywords || [b.title.toLowerCase()],
+          details: b.summary
+        }))].filter(item => item.keywords.some(k => k.includes(keyword.toLowerCase())));
+        return results.length ? results.map(r => r.path).join('\n') : `No results found for '${keyword}'. Try 'help'.`;
       },
       cat: (arg) => {
-        const sectionDetails = {
-          home: 'Welcome to my cybersecurity portfolio.\nMTech Cybersecurity Student | Penetration Testing Enthusiast',
-          about: 'I\'m Saurabh Koravi, a cybersecurity enthusiast pursuing an MTech in Cybersecurity.\nExpertise in penetration testing, network security, and blockchain-based DDoS prevention.',
-          skills: 'Python, Java, JavaScript, C/C++, Flask, Scapy, Wireshark, Cisco Packet Tracer, Metasploit, Linux, MySQL, Git',
-          projects: 'Network Anomaly Detection Dashboard, Cisco Network Topologies, Blockchain for DDoS Prevention, Neural Network Line Follower',
-          education: 'MTech Cybersecurity (Ongoing), B.E. Electronics (8.9 CGPA), 12th (64%), 10th (81%)',
-          contact: 'Email: saurabh.koravi@example.com\nLinkedIn: linkedin.com/in/saurabh-koravi\nTwitter: twitter.com/hardkoravi',
-          blog: 'Latest cybersecurity insights and research.',
-          'resume-animation': 'View my resume as a terminal-style text animation.'
-        };
-        const projectDetails = {
-          'network-anomaly': 'A real-time dashboard for detecting ARP replies and port scans using Scapy, Flask, and Chart.js.',
-          'cisco-topologies': 'Designed star, bus, and ring topologies with IP configurations in Cisco Packet Tracer.',
-          'blockchain-ddos': 'Research and prototype using blockchain and smart contracts for real-time DDoS mitigation.',
-          'neural-net': 'Built a neural network in C++ for a line-following robot, implemented on Arduino Uno.'
-        };
-        if (sectionDetails[arg]) return sectionDetails[arg];
-        if (projectDetails[arg]) return projectDetails[arg];
+        const item = [...searchItems, ...blogs.map(b => ({
+          name: b.title,
+          path: b.link,
+          details: b.summary
+        }))].find(i => i.path === arg || i.path.split('/').pop() === arg);
+        if (item) return item.details;
         return `No details found for '${arg}'. Try 'ls' or 'find'.`;
       },
       pwd: () => {
@@ -432,8 +431,23 @@
         }
         return '/home';
       },
-      clear: (arg, output) => {
-        output.innerHTML = '';
+      whoami: () => 'Saurabh Koravi, MTech Cybersecurity student specializing in penetration testing and blockchain-based DDoS prevention.',
+      man: (arg) => {
+        const manPages = {
+          help: 'help: Display list of available commands.',
+          ls: 'ls: List all portfolio sections.',
+          cd: 'cd [section]: Navigate to a section (e.g., cd projects).',
+          find: 'find [keyword]: Search projects, blogs, or sections by keyword.',
+          cat: 'cat [section/project/blog]: Display details of a section, project, or blog post.',
+          pwd: 'pwd: Show the current section.',
+          whoami: 'whoami: Display bio information.',
+          man: 'man [command]: Show help for a specific command.',
+          clear: 'clear: Clear the terminal output.'
+        };
+        return manPages[arg] || `No manual entry for '${arg}'. Try 'help'.`;
+      },
+      clear: () => {
+        terminalOutput.innerHTML = '';
         return '';
       }
     };
@@ -442,64 +456,143 @@
     let historyIndex = -1;
     let outputCount = 0;
 
-    sections.forEach(section => {
-      const input = document.getElementById(`${section}-input`);
-      const output = document.getElementById(`${section}-output`);
-      const prompt = input.parentElement;
+    // Tab Completion
+    function getSuggestions(input) {
+      const [cmd, arg] = input.trim().split(' ');
+      if (!arg) return Object.keys(commands).filter(c => c.startsWith(cmd));
+      if (cmd === 'cd') return sections.filter(s => s.startsWith(arg));
+      if (cmd === 'cat' || cmd === 'find') {
+        return [...searchItems, ...blogs.map(b => ({ path: b.link }))].map(i => i.path.split('/').pop()).filter(p => p.startsWith(arg));
+      }
+      if (cmd === 'man') return Object.keys(commands).filter(c => c.startsWith(arg));
+      return [];
+    }
 
-      prompt.addEventListener('click', () => input.focus());
-
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-          const [cmd, ...args] = input.value.trim().split(' ');
-          commandHistory.unshift(input.value);
-          historyIndex = -1;
-          input.value = '';
-          let result = `Command not found: ${cmd}`;
-          if (commands[cmd]) {
-            result = commands[cmd](args[0] || '', output);
-          }
-          const outputClass = outputCount % 2 === 0 ? 'output-even' : 'output-odd';
-          output.innerHTML += `<p class="${outputClass}">scnayke:~$ ${cmd} ${args.join(' ')}<br>${result}</p>`;
-          output.scrollTop = output.scrollHeight;
-          outputCount++;
-        } else if (e.key === 'ArrowUp') {
-          if (historyIndex < commandHistory.length - 1) {
-            historyIndex++;
-            input.value = commandHistory[historyIndex] || '';
-          }
-        } else if (e.key === 'ArrowDown') {
-          if (historyIndex > -1) {
-            historyIndex--;
-            input.value = historyIndex === -1 ? '' : commandHistory[historyIndex];
-          }
+    terminalInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const input = terminalInput.value.trim();
+        commandHistory.unshift(input);
+        historyIndex = -1;
+        terminalInput.value = '';
+        let result = `Command not found: ${input.split(' ')[0]}. Try 'help'.`;
+        const [cmd, ...args] = input.split(' ');
+        if (commands[cmd]) {
+          result = commands[cmd](args[0] || '');
         }
-      });
+        const outputClass = outputCount % 2 === 0 ? 'output-even' : 'output-odd';
+        terminalOutput.innerHTML += `<p class="${outputClass}">scnayke:~$ ${input}<br>${result}</p>`;
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        outputCount++;
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        const suggestions = getSuggestions(terminalInput.value);
+        if (suggestions.length === 1) {
+          const [cmd, arg] = terminalInput.value.trim().split(' ');
+          terminalInput.value = arg ? `${cmd} ${suggestions[0]}` : suggestions[0];
+        }
+      } else if (e.key === 'ArrowUp') {
+        if (historyIndex < commandHistory.length - 1) {
+          historyIndex++;
+          terminalInput.value = commandHistory[historyIndex] || '';
+        }
+      } else if (e.key === 'ArrowDown') {
+        if (historyIndex > -1) {
+          historyIndex--;
+          terminalInput.value = historyIndex === -1 ? '' : commandHistory[historyIndex];
+        }
+      }
     });
 
-    // Set default focus
-    window.addEventListener('load', () => {
-      document.getElementById('home-input').focus();
-    });
-
-    // Blog Loader
-    fetch('blogs.json')
-      .then(response => response.json())
-      .then(blogs => {
-        const blogPosts = document.getElementById('blog-posts');
-        blogs.forEach(blog => {
-          blogPosts.innerHTML += `
-            <div>
-              <h3 class="text-xl font-semibold">${blog.title}</h3>
-              <p class="text-lg">${blog.date} | ${blog.summary}</p>
-              <a href="${blog.link}" target="_blank" rel="noopener noreferrer" class="hover:text-green-300">Read More</a>
-            </div>
-          `;
+    // Focus Management
+    function trapFocus() {
+      const focusable = terminalFloat.querySelectorAll('input, button');
+      focusable.forEach((el, i) => {
+        el.addEventListener('keydown', (e) => {
+          if (e.key === 'Tab') {
+            e.preventDefault();
+            const next = e.shiftKey ? focusable[i - 1] || focusable[focusable.length - 1] : focusable[i + 1] || focusable[0];
+            next.focus();
+          }
         });
-      })
-      .catch(() => {
-        document.getElementById('blog-posts').innerHTML = '<p>No blog posts available yet.</p>';
       });
+    }
+
+    toggleTerminal.addEventListener('click', () => {
+      terminalFloat.classList.toggle('active');
+      if (terminalFloat.classList.contains('active')) {
+        terminalInput.focus();
+        trapFocus();
+      }
+    });
+
+    // Draggable Terminal
+    const terminalHeader = terminalFloat.querySelector('.terminal-header');
+    let isDragging = false, currentX, currentY, initialX, initialY;
+    terminalHeader.addEventListener('mousedown', (e) => {
+      initialX = e.clientX - currentX;
+      initialY = e.clientY - currentY;
+      isDragging = true;
+    });
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        e.preventDefault();
+        currentX = e.clientX - initialX;
+        currentY = e.clientY - initialY;
+        terminalFloat.style.right = 'auto';
+        terminalFloat.style.bottom = 'auto';
+        terminalFloat.style.left = `${currentX}px`;
+        terminalFloat.style.top = `${currentY}px`;
+      }
+    });
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    // Onboarding
+    if (!localStorage.getItem('terminal-onboarded')) {
+      terminalFloat.classList.add('active');
+      terminalInput.focus();
+      terminalOutput.innerHTML = `<p class="output-even">scnayke:~$ help<br>${commands.help()}</p>`;
+      localStorage.setItem('terminal-onboarded', 'true');
+    }
+
+    // Blog Loader with Caching
+    const defaultBlogs = [{
+      title: 'Placeholder Blog Post',
+      date: '2025-01-01',
+      summary: 'This is a placeholder blog post. Update blogs.json to add real content.',
+      link: 'blog/placeholder.html',
+      keywords: ['placeholder']
+    }];
+    function loadBlogs() {
+      const cached = localStorage.getItem('blogs');
+      if (cached) {
+        blogs = JSON.parse(cached);
+        renderBlogs(blogs);
+      }
+      fetch('blogs.json')
+        .then(response => response.json())
+        .then(data => {
+          blogs = data;
+          localStorage.setItem('blogs', JSON.stringify(data));
+          renderBlogs(data);
+        })
+        .catch(() => {
+          blogs = defaultBlogs;
+          renderBlogs(blogs);
+        });
+    }
+    function renderBlogs(blogs) {
+      const blogPosts = document.getElementById('blog-posts');
+      blogPosts.innerHTML = blogs.map(blog => `
+        <div>
+          <h3 class="text-2xl font-semibold">${blog.title}</h3>
+          <p class="text-xl">${blog.date} | ${blog.summary}</p>
+          <a href="${blog.link}" target="_blank" rel="noopener noreferrer" class="hover:text-green-300 text-xl">Read More</a>
+        </div>
+      `).join('');
+    }
+    loadBlogs();
   </script>
 </body>
 </html>

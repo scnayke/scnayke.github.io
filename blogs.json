@@ -3,12 +3,21 @@
     "title": "Blockchain for DDoS Prevention: A Literature Review",
     "date": "2025-04-01",
     "summary": "Exploring how blockchain and smart contracts can mitigate DDoS attacks in real-time.",
-    "link": "blog/ddos-blockchain.html"
+    "link": "blog/ddos-blockchain.html",
+    "keywords": ["blockchain", "ddos", "security"]
   },
   {
     "title": "Building a Network Anomaly Detection Dashboard",
     "date": "2025-03-15",
     "summary": "A step-by-step guide to creating a real-time dashboard with Scapy, Flask, and Chart.js.",
-    "link": "blog/network-anomaly.html"
+    "link": "blog/network-anomaly.html",
+    "keywords": ["network", "anomaly", "scapy", "flask"]
+  },
+  {
+    "title": "Penetration Testing with Metasploit",
+    "date": "2025-02-10",
+    "summary": "An introduction to using Metasploit for penetration testing and vulnerability assessment.",
+    "link": "blog/metasploit-pentesting.html",
+    "keywords": ["metasploit", "pentesting", "security"]
   }
 ]
