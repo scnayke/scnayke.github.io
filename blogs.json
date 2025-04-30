@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Blockchain for DDoS Prevention: A Literature Review",
+    "date": "2025-04-01",
+    "summary": "Exploring how blockchain and smart contracts can mitigate DDoS attacks in real-time.",
+    "link": "blog/ddos-blockchain.html"
+  },
+  {
+    "title": "Building a Network Anomaly Detection Dashboard",
+    "date": "2025-03-15",
+    "summary": "A step-by-step guide to creating a real-time dashboard with Scapy, Flask, and Chart.js.",
+    "link": "blog/network-anomaly.html"
+  }
+]
